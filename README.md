@@ -7,7 +7,7 @@
 ```js
 import 'angular-highlight';
 
-angular.module('app',  ['angular-highlight]);
+angular.module('app',  ['angular-highlight']);
 ```
 
 ```html
@@ -28,7 +28,7 @@ angular.module('app',  ['angular-highlight]);
 
 </pre>
 ```
-** or **
+**or**
 ```html
 <highlight language="javascript" trim-empty-lines="true">
 
@@ -48,7 +48,7 @@ angular.module('app',  ['angular-highlight]);
 </highlight>
 ```
 
-** output a html wrapped by ```code``` element with hljs elements/classes to show like: **
+**output a html wrapped by ```code``` element with hljs elements/classes to show like:**
 
 ```js
   var hello = 'Hello World';
