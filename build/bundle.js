@@ -46,14 +46,7 @@
 
 	'use strict';
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _highlight = __webpack_require__(1);
-
-	var _highlight2 = _interopRequireDefault(_highlight);
-
-	angular.module('app', ['angular-highlight']);
-	//angular.bootstrap(document, ['angular-highlight']);
+	__webpack_require__(1);
 
 /***/ },
 /* 1 */
@@ -99,8 +92,8 @@
 	var HighlightDirective = (function () {
 	  _createClass(HighlightDirective, null, [{
 	    key: 'directiveFactory',
-	    value: function directiveFactory($compile) {
-	      HighlightDirective.instance = new HighlightDirective($compile);
+	    value: function directiveFactory($compile, $timeout) {
+	      HighlightDirective.instance = new HighlightDirective($compile, $timeout);
 	      return HighlightDirective.instance;
 	    }
 	  }, {
@@ -110,7 +103,7 @@
 	    }
 	  }]);
 
-	  function HighlightDirective($compile) {
+	  function HighlightDirective($compile, $timeout) {
 	    _classCallCheck(this, HighlightDirective);
 
 	    this.restrict = 'EA';
@@ -119,34 +112,41 @@
 	    this.bindToController = true;
 
 	    this.$compile = $compile;
+	    this.$timeout = $timeout;
 	  }
 
 	  //HighlightDirective.$inject = ['$compile', '$timeout'];
 
 	  _createClass(HighlightDirective, [{
 	    key: 'compile',
-	    value: function compile(tElement, tAttrs) {
+	    value: function compile() {
 	      return this.link;
 	    }
 	  }, {
 	    key: 'link',
 	    value: function link(scope, element, attrs) {
-	      var language = attrs.highlight || attrs.language;
-	      var trimEmptyLines = attrs.trimEmptyLines;
-	      var code = undefined;
+	      var _this = this;
 
-	      code = language === 'html' ? element.html() : element.text();
+	      this.$timeout(function () {
+	        var language = attrs.highlight || attrs.language;
+	        var trimEmptyLines = attrs.trimEmptyLines;
+	        var code = undefined;
 
-	      code = trimEmptyLines ? code.replace(/^\s*\n/gm, '\n') : code;
+	        code = language === 'html' ? element.html() : element.text();
 
-	      if (!code) {
-	        return;
-	      }
+	        if (!code) {
+	          return;
+	        }
 
-	      var highlight = language ? _highlightJs2['default'].highlight(language, code) : _highlightJs2['default'].highlightAuto(code);
-	      var html = highlight.value;
-	      element.html('<code>' + html + '</code>');
-	      this.$compile(element.contents())(scope);
+	        if (trimEmptyLines) {
+	          code = code.replace(/^\s*\n/gm, '\n');
+	        }
+
+	        var highlight = language ? _highlightJs2['default'].highlight(language, code) : _highlightJs2['default'].highlightAuto(code);
+	        var html = highlight.value;
+	        element.html('<code>' + html + '</code>');
+	        _this.$compile(element.contents())(scope);
+	      });
 	    }
 	  }]);
 
@@ -154,7 +154,7 @@
 	})();
 
 	exports['default'] = HighlightDirective;
-	HighlightDirective.directiveFactory.$inject = ['$compile'];
+	HighlightDirective.directiveFactory.$inject = ['$compile', '$timeout'];
 	module.exports = exports['default'];
 
 /***/ },

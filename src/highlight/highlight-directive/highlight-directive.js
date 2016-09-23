@@ -6,18 +6,19 @@ export default class HighlightDirective {
     return 'highlight';
   }
 
-  static directiveFactory($compile) {
-    HighlightDirective.instance = new HighlightDirective($compile);
+  static directiveFactory($compile, $timeout) {
+    HighlightDirective.instance = new HighlightDirective($compile, $timeout);
     return HighlightDirective.instance;
   }
 
-  constructor($compile) {
+  constructor($compile, $timeout) {
     this.restrict = 'EA';
     this.scope = '=';
 
     this.bindToController = true;
 
     this.$compile = $compile;
+    this.$timeout = $timeout;
   }
 
   compile() {
@@ -25,26 +26,28 @@ export default class HighlightDirective {
   }
 
   link(scope, element, attrs) {
-    const language = attrs.highlight || attrs.language;
-    const trimEmptyLines = attrs.trimEmptyLines;
-    let code;
+    this.$timeout(() => {
+      const language = attrs.highlight || attrs.language;
+      const trimEmptyLines = attrs.trimEmptyLines;
+      let code;
 
-    code = language === 'html' ? element.html() : element.text();
+      code = language === 'html' ? element.html() : element.text();
 
-    if (!code) {
-      return;
-    }
+      if (!code) {
+        return;
+      }
 
-    if (trimEmptyLines) {
-      code = code.replace(/^\s*\n/gm, '\n');
-    }
+      if (trimEmptyLines) {
+        code = code.replace(/^\s*\n/gm, '\n');
+      }
 
-    const highlight = language ? hljs.highlight(language, code) : hljs.highlightAuto(code);
-    const html = highlight.value;
-    element.html(`<code>${html}</code>`)
-    this.$compile(element.contents())(scope);
+      const highlight = language ? hljs.highlight(language, code) : hljs.highlightAuto(code);
+      const html = highlight.value;
+      element.html(`<code>${html}</code>`)
+      this.$compile(element.contents())(scope);
+    });
   }
 }
 
 //HighlightDirective.$inject = ['$compile', '$timeout'];
-HighlightDirective.directiveFactory.$inject = ['$compile'];
+HighlightDirective.directiveFactory.$inject = ['$compile', '$timeout'];
