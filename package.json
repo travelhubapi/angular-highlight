@@ -55,6 +55,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.8.0",
     "nsp": "^2.6.1",
+    "pre-git": "^3.10.0",
     "webpack": "^1.12.2"
   },
   "dependencies": {
