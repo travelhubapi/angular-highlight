@@ -1,6 +1,12 @@
-test
+*.log
+/.*/
+/.eslint*
+/.babel*
+/.editor*
+/.gitignore
+/.npmignore
+/.travis.yml
+/webpack.*
 coverage
-.eslint
-.gitignore
-karma.conf.js
-webpack.config.js
+test
+tests.webpack.js

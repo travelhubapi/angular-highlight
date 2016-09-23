@@ -22,7 +22,7 @@ export default class HighlightDirective {
   }
 
   compile() {
-    return this.link
+    return this.link;
   }
 
   link(scope, element, attrs) {
@@ -43,11 +43,11 @@ export default class HighlightDirective {
 
       const highlight = language ? hljs.highlight(language, code) : hljs.highlightAuto(code);
       const html = highlight.value;
-      element.html(`<code>${html}</code>`)
+      element.html(`<code>${html}</code>`);
       this.$compile(element.contents())(scope);
     });
   }
 }
 
-//HighlightDirective.$inject = ['$compile', '$timeout'];
+//  HighlightDirective.$inject = ['$compile', '$timeout'];
 HighlightDirective.directiveFactory.$inject = ['$compile', '$timeout'];

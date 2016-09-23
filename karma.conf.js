@@ -1,89 +1,76 @@
-// Karma configuration
-// Generated on Thu Sep 22 2016 15:35:44 GMT-0300 (BRT)
-
 var path = require('path');
 
 module.exports = function (config) {
   config.set({
-
-    basePath: '',
-
-    frameworks: ['jasmine'],
-
+    colors: true,
+    logLevel: config.LOG_INFO,
+    autoWatch: false,
+    singleRun: true,
+    concurrency: Infinity,
+    browsers: ['Chrome'],
+    coverageReporter: {
+      reporters: [
+        {
+          type: 'html',
+          subdir: 'html'
+        },
+        {
+          type: 'text'
+        },
+        {
+          type: 'lcovonly',
+          subdir: '.'
+        },
+      ],
+    },
     files: [
       'node_modules/angular/angular.min.js',
       'node_modules/angular-mocks/angular-mocks.js',
-//      'build/bundle.js',
-      'src/index.js',
-      'test/**/*.js'
+      'tests.webpack.js',
     ],
-
-    plugin: [
-      'karma-coverage'
+    frameworks: [
+      'jasmine',
     ],
-
     preprocessors: {
-      'src/**/*.js': ['webpack', 'sourcemap', 'coverage'],
-      'test/**/*.js': ['webpack']
+      'tests.webpack.js': ['webpack', 'sourcemap'],
     },
-
+    reporters: ['progress', 'coverage'],
     webpack: {
-
+      cache: true,
       devtool: 'inline-source-map',
       module: {
+        preLoaders: [
+          {
+            test: /\.js$/,
+            include: /test/,
+            exclude: /(bower_components|node_modules)/,
+            loader: 'babel',
+            query: {
+              cacheDirectory: true,
+            },
+          },
+          {
+            test: /\.js?$/,
+            include: /src/,
+            exclude: /(node_modules|bower_components)/,
+            loader: 'babel-istanbul',
+            query: {
+              cacheDirectory: true,
+            },
+          },
+        ],
         loaders: [
           {
-            test: /\.js/,
-            exclude: /node_modules/,
-            loader: 'babel-loader'
-          }
+            test: /\.js$/,
+            include: path.resolve(__dirname, '../src'),
+            exclude: /(bower_components|node_modules)/,
+            loader: 'babel',
+            query: {
+              cacheDirectory: true,
+            },
+          },
         ],
       },
-      watch: true
     },
-
-    webpackServer: {
-      noInfo: true
-    },
-
-    reporters: ['progress', 'coverage', 'coveralls'],
-
-    coverageReporter: {
-      dir: 'coverage/',
-      reporters: [
-        {
-          type: 'text-summary'
-        },
-        {
-          type: 'lcov',
-          subdir: 'report-lcov'
-        }
-      ]
-    },
-
-    // web server port
-    port: 9876,
-
-    // enable / disable colors in the output (reporters and logs)
-    colors: true,
-
-    // level of logging
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
-
-    // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
-
-    // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
-
-    // Continuous Integration mode
-    // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true,
-
-    // Concurrency level
-    // how many browser should be started simultaneous
-    concurrency: Infinity
-  })
-}
+  });
+};

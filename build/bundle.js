@@ -54,19 +54,19 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var _highlightDirective = __webpack_require__(2);
 
-	var _highlightDirectiveHighlightDirectiveJs = __webpack_require__(2);
+	var _highlightDirective2 = _interopRequireDefault(_highlightDirective);
 
-	var _highlightDirectiveHighlightDirectiveJs2 = _interopRequireDefault(_highlightDirectiveHighlightDirectiveJs);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports['default'] = angular.module('angular-highlight', []).directive(_highlightDirectiveHighlightDirectiveJs2['default'].name, _highlightDirectiveHighlightDirectiveJs2['default'].directiveFactory);
-
+	exports.default = angular.module('angular-highlight', []).directive(_highlightDirective2.default.name, _highlightDirective2.default.directiveFactory);
 	//  .directive(HighlightDirective.name, () => new HighlightDirective);
+
 	module.exports = exports['default'];
 
 /***/ },
@@ -75,21 +75,21 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var _highlight = __webpack_require__(3);
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	var _highlight2 = _interopRequireDefault(_highlight);
 
-	var _highlightJs = __webpack_require__(3);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _highlightJs2 = _interopRequireDefault(_highlightJs);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var HighlightDirective = (function () {
+	var HighlightDirective = function () {
 	  _createClass(HighlightDirective, null, [{
 	    key: 'directiveFactory',
 	    value: function directiveFactory($compile, $timeout) {
@@ -115,8 +115,6 @@
 	    this.$timeout = $timeout;
 	  }
 
-	  //HighlightDirective.$inject = ['$compile', '$timeout'];
-
 	  _createClass(HighlightDirective, [{
 	    key: 'compile',
 	    value: function compile() {
@@ -130,7 +128,7 @@
 	      this.$timeout(function () {
 	        var language = attrs.highlight || attrs.language;
 	        var trimEmptyLines = attrs.trimEmptyLines;
-	        var code = undefined;
+	        var code = void 0;
 
 	        code = language === 'html' ? element.html() : element.text();
 
@@ -142,7 +140,7 @@
 	          code = code.replace(/^\s*\n/gm, '\n');
 	        }
 
-	        var highlight = language ? _highlightJs2['default'].highlight(language, code) : _highlightJs2['default'].highlightAuto(code);
+	        var highlight = language ? _highlight2.default.highlight(language, code) : _highlight2.default.highlightAuto(code);
 	        var html = highlight.value;
 	        element.html('<code>' + html + '</code>');
 	        _this.$compile(element.contents())(scope);
@@ -151,9 +149,12 @@
 	  }]);
 
 	  return HighlightDirective;
-	})();
+	}();
 
-	exports['default'] = HighlightDirective;
+	//  HighlightDirective.$inject = ['$compile', '$timeout'];
+
+
+	exports.default = HighlightDirective;
 	HighlightDirective.directiveFactory.$inject = ['$compile', '$timeout'];
 	module.exports = exports['default'];
 
@@ -338,17 +339,19 @@
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
 	/*
 	Syntax highlighting with language autodetection.
 	https://highlightjs.org/
 	*/
 
-	'use strict';
-
 	(function (factory) {
 
 	  // Find the global object for export to both the browser and web workers.
-	  var globalObject = typeof window === 'object' && window || typeof self === 'object' && self;
+	  var globalObject = (typeof window === 'undefined' ? 'undefined' : _typeof(window)) === 'object' && window || (typeof self === 'undefined' ? 'undefined' : _typeof(self)) === 'object' && self;
 
 	  // Setup highlight.js for different environments. First is Node.js or
 	  // CommonJS.
@@ -446,9 +449,11 @@
 	    var key;
 	    var result = {};
 
-	    for (key in parent) result[key] = parent[key];
-	    if (obj) for (key in obj) result[key] = obj[key];
-	    return result;
+	    for (key in parent) {
+	      result[key] = parent[key];
+	    }if (obj) for (key in obj) {
+	      result[key] = obj[key];
+	    }return result;
 	  }
 
 	  /* Stream merging */
@@ -661,26 +666,15 @@
 	      }
 	    }
 
-	    function endOfMode(_x, _x2) {
-	      var _again = true;
-
-	      _function: while (_again) {
-	        var mode = _x,
-	            lexeme = _x2;
-	        _again = false;
-
-	        if (testRe(mode.endRe, lexeme)) {
-	          while (mode.endsParent && mode.parent) {
-	            mode = mode.parent;
-	          }
-	          return mode;
+	    function endOfMode(mode, lexeme) {
+	      if (testRe(mode.endRe, lexeme)) {
+	        while (mode.endsParent && mode.parent) {
+	          mode = mode.parent;
 	        }
-	        if (mode.endsWithParent) {
-	          _x = mode.parent;
-	          _x2 = lexeme;
-	          _again = true;
-	          continue _function;
-	        }
+	        return mode;
+	      }
+	      if (mode.endsWithParent) {
+	        return endOfMode(mode.parent, lexeme);
 	      }
 	    }
 
@@ -1341,6 +1335,8 @@
 	//
 	// Languages causing problems for language detection:
 	// xml (broken by Foo : Bar type), elm (broken by Foo : Bar type), vbscript-html (broken by body keyword)
+	// sql (ada default.txt has a lot of sql keywords)
+
 	function (hljs) {
 	    // Regular expression for Ada numeric literals.
 	    // stolen form the VHDL highlighter
@@ -1473,13 +1469,6 @@
 	        VAR_DECLS]
 	    };
 	};
-	// sql (ada default.txt has a lot of sql keywords)
-
-	// no markup
-	// relevance boosters for small snippets
-	// {begin: '\\s*=>\\s*'},
-	// {begin: '\\s*:=\\s*'},
-	// {begin: '\\s+:=\\s+'},
 
 /***/ },
 /* 10 */
@@ -4863,8 +4852,6 @@
 	        contains: [DESCTEXT]
 	      }, hljs.COMMENT('^\\*', '$'), hljs.C_LINE_COMMENT_MODE, hljs.C_BLOCK_COMMENT_MODE, hljs.QUOTE_STRING_MODE, hljs.APOS_STRING_MODE, hljs.C_NUMBER_MODE]
 	    },
-	    // Table does not contain DESCTEXT or ASSIGNMENT
-
 	    // Function definitions
 	    {
 	      className: 'function',
@@ -9525,7 +9512,6 @@
 	  '===\\s', // markdown
 	  '\\|', '%'];
 
-	  // prolog
 	  return {
 	    aliases: ['styl'],
 	    case_insensitive: false,
