@@ -10,6 +10,8 @@ import 'angular-highlight';
 angular.module('app',  ['angular-highlight']);
 ```
 
+**in html**
+
 ```html
 <pre highlight="javascript" trim-empty-lines="true">
 
@@ -48,7 +50,7 @@ angular.module('app',  ['angular-highlight']);
 </highlight>
 ```
 
-**output a html wrapped by ```code``` element with hljs elements/classes to show like:**
+**output a html wrapped by ```<code>``` element with hljs elements/classes to show like:**
 
 ```js
   var hello = 'Hello World';
