@@ -2,6 +2,12 @@
 
 ## A directive to use [highlight.js](highlightjs.org) in angularjs
 
+### Installation
+
+```
+npm install angular-highlight
+```
+
 ### Usage
 
 ```js
