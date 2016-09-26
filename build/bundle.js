@@ -64,9 +64,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = angular.module('angular-highlight', []).directive(_highlightDirective2.default.name, _highlightDirective2.default.directiveFactory);
-	//  .directive(HighlightDirective.name, () => new HighlightDirective);
-
+	exports.default = angular.module('angular-highlight', []).directive(_highlightDirective2.default.directiveName, _highlightDirective2.default.directiveFactory);
 	module.exports = exports['default'];
 
 /***/ },
@@ -97,7 +95,7 @@
 	      return HighlightDirective.instance;
 	    }
 	  }, {
-	    key: 'name',
+	    key: 'directiveName',
 	    get: function get() {
 	      return 'highlight';
 	    }
@@ -151,10 +149,9 @@
 	  return HighlightDirective;
 	}();
 
-	//  HighlightDirective.$inject = ['$compile', '$timeout'];
-
-
 	exports.default = HighlightDirective;
+
+
 	HighlightDirective.directiveFactory.$inject = ['$compile', '$timeout'];
 	module.exports = exports['default'];
 
