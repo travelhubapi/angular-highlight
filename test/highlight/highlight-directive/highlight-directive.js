@@ -16,7 +16,8 @@ describe('Unit: Highlight directive', function () {
   it('should bind a highlightjs class', angular.mock.inject(function ($timeout) {
     const element = $compile(`
       <highlight language="javascript">
-        console.log(' arroz ');
+        console.log('Hello');
+        alert('Hello');
       </highlight>`
     )($rootScope);
     $rootScope.$digest();
@@ -43,7 +44,7 @@ describe('Unit: Highlight directive', function () {
 
 
 
-        console.log(' arroz ');
+        alert('spaces');
 
 
 
