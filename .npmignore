@@ -6,6 +6,7 @@
 /.gitignore
 /.npmignore
 /.travis.yml
+/.codeclimate.yml
 /webpack.*
 coverage
 test

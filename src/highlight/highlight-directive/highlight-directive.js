@@ -2,7 +2,7 @@ import hljs from 'highlight.js';
 
 export default class HighlightDirective {
 
-  static get name() {
+  static get directiveName() {
     return 'highlight';
   }
 
@@ -49,5 +49,4 @@ export default class HighlightDirective {
   }
 }
 
-//  HighlightDirective.$inject = ['$compile', '$timeout'];
 HighlightDirective.directiveFactory.$inject = ['$compile', '$timeout'];

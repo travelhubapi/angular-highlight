@@ -1,6 +1,9 @@
 build/*
+coverage/*
 dist/*
 node_modules/*
 **/node_modules/*
 tools/*
 tests.webpack.js
+webpack.config.js
+karma.conf.js
